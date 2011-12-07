@@ -1,38 +1,28 @@
 #include "vga256.h"
 
-void SaveBitmap(int x1, int y1, void far *ptr)
+void SaveBitmap(int x1, int y1, Bitmap_t far *p)
 {
-  int x, y, x2, y2;
-  x2 = x1 + *((int far *)ptr)++;
-  y2 = y1 + *((int far *)ptr)++;
-  for(y = y1; y <= y2; y++)
-    for(x = x1; x <= x2; x++)
-      *((char far *)ptr)++ = GetPixel(x, y);
+  int x, y, x2 = x1 + p->dx, y2 = y1 + p->dy;
+  unsigned char far *pp = p->bitmap;
+  for(y = y1; y <= y2; ++y)
+    for(x = x1; x <= x2; ++x)
+      *pp++ = GetPixel(x, y);
 }
 
-void RestoreBitmap(int x1, int y1, char mode, void far *ptr)
+void RestoreBitmap(int x1, int y1, char mode, Bitmap_t far *p)
 {
-  int x, y, x2, y2;
-  x2 = x1 + *((int far *)ptr)++;
-  y2 = y1 + *((int far *)ptr)++;
-  for(y = y1; y <= y2; y++)
-    for(x = x1; x <= x2; x++)
-      switch(mode)
-      {
-        case CopyPut:
-          PutPixel(x, y, *((char far *)ptr)++);
-          break;
-        case XorPut:
-          XorPutPixel(x, y, *((char far *)ptr)++);
-          break;
-        case OrPut:
-          OrPutPixel(x, y, *((char far *)ptr)++);
-          break;
-        case AndPut:
-          AndPutPixel(x, y, *((char far *)ptr)++);
-          break;
-        case NotPut:
-          NotPutPixel(x, y, *((char far *)ptr)++);
-          break;
-      }
+  static PutPixelFunc_t putPixelFuncsTbl[] =
+  {
+    PutPixel,
+    XorPutPixel,
+    OrPutPixel,
+    AndPutPixel,
+    NotPutPixel
+  };
+  PutPixelFunc_t putPixelFunc = mode < 5 ? putPixelFuncsTbl[mode] : PutPixel;
+  int x, y, x2 = x1 + p->dx, y2 = y1 + p->dy;
+  unsigned char far *pp = p->bitmap;
+  for(y = y1; y <= y2; ++y)
+    for(x = x1; x <= x2; ++x)
+      putPixelFunc(x, y, *pp++);
 }

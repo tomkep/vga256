@@ -94,7 +94,9 @@ extern POINT cp;
 extern int DrawColor;
 extern int BkgrColor;
 extern int FillColor;
-extern int WriteMode;
+
+typedef void (*PutPixelFunc_t)(int, int, int);
+extern PutPixelFunc_t PutPixelFunc;
 
 extern PALETTE DefaultPalette;
 
@@ -138,9 +140,16 @@ POINT SetTextStyle(unsigned char NewFontNo,
                    int XSize, int YSize);
 POINT GetTextSize(char far *string, int len);
 void Text(char far *string, int len);
-void SaveBitmap(int x1, int y1, void far *ptr);
-void RestoreBitmap(int x1, int y1, char mode,
-                   void far *ptr);
+
+typedef struct
+{
+  unsigned int dx;
+  unsigned int dy;
+  unsigned char bitmap[];
+} Bitmap_t;
+
+void SaveBitmap(int x1, int y1, Bitmap_t far *ptr);
+void RestoreBitmap(int x1, int y1, char mode, Bitmap_t far *ptr);
 
 void InstallMouse(void);
 void UninstallMouse(void);

@@ -62,7 +62,7 @@ POINT cp =
 
 int DrawColor;
 int BkgrColor;
-int WriteMode = CopyPut;
+PutPixelFunc_t PutPixelFunc = PutPixel;
 
 #ifdef BGI30
 
@@ -418,7 +418,7 @@ static void huge fSET_VISUAL_PAGE(void)
 #pragma saveregs
 static void huge fSET_WRITE_MODE(void)
 {
-  WriteMode = _AX ? XorPut : CopyPut;
+  PutPixelFunc = _AX ? XorPutPixel : PutPixel;
 }
 
 static void (* near BitmapUtils[])(void) =

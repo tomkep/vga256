@@ -30,16 +30,7 @@ void Vect(int x1, int y1, int x2, int y2)
   while(1)
   {
     i = _rotl(i, 1);
-    if(i & 1)
-      switch (WriteMode)
-      {
-        case CopyPut:
-          PutPixel(x1, y1, DrawColor);
-          break;
-        case XorPut:
-          XorPutPixel(x1, y1, DrawColor);
-          break;
-      }
+    PutPixelFunc(x1, y1, i & 1 ? DrawColor : BkgrColor);
     if(x1 == x2 && y1 == y2)
       break;
     if(c < 0)
