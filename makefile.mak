@@ -1,22 +1,22 @@
-TASM = tasm
-TLINK = tlink
-CC = bcc
+TASM    = tasm
+TLINK   = tlink
+CC      = bcc
 
-LINKOPT = -x -c -t -i
+LINKOPT = -s -c -t -i
 
 !if $d(BGI30)
 
-COPT = -mt! -1- -f- -O2 -Os -DBGI30
-TASMOPT = -m -ml -jP8086 -dBGI30
+COPT    = -mt! -1- -f- -O1 -w -DBGI30
+TASMOPT = -m -ml -w -jP8086 -dBGI30
 
 !else
 
-COPT = -mt! -1- -f- -O2 -Os
-TASMOPT = -m -ml -jP8086
+COPT    = -mt! -1- -f- -O1 -w
+TASMOPT = -m -ml -w -jP8086
 
 !endif
 
-OBJS = segs.obj vga256.obj bitmap.obj flood.obj interfce.obj line1.obj mouse.obj patbar.obj pixel.obj text.obj
+OBJS    = segs.obj vga256.obj bitmap.obj flood.obj interfce.obj line1.obj mouse.obj patbar.obj pixel.obj text.obj
 
 .asm.obj:
 	$(TASM) $(TASMOPT) $.
@@ -54,3 +54,9 @@ patbar.obj: patbar.c
 pixel.obj: pixel.c
 
 text.obj: text.c
+
+clean:
+	del *.obj
+	del *.bin
+	del *.bak
+	del *.map
