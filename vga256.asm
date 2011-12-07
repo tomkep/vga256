@@ -63,15 +63,15 @@ DATASEG
 
 IFDEF BGI30
 
-                db      2               ; liczba selektor¢w do konwersji
-                dw      offset SelA000  ; offset tablicy selektor¢w
-                db      0               ; liczba adres¢w przerwa¤ do konwersji
-                dw      0               ; offset tablicy dwus’¢w z numerem przerwania w najm’odszym bajcie
-                db      0               ; liczba bufor¢w do alokacji
-                dw      0               ; adres do tablicy tr¢js’¢w
-                                        ; pierwsze s’owo -> liczba paragraf¢w do zaalokowania
-                                        ; drugie s’owo -> uzyskuje adres bufora do trybu real
-                                        ; trzecie s’owo -> uzyskuje adres bufora do trybu protected
+                db      2               ; liczba selektorÃ³w do konwersji
+                dw      offset SelA000  ; offset tablicy selektorÃ³w
+                db      0               ; liczba adresÃ³w przerwaÅ„ do konwersji
+                dw      0               ; offset tablicy dwusÅ‚Ã³w z numerem przerwania w najmÅ‚odszym bajcie
+                db      0               ; liczba buforÃ³w do alokacji
+                dw      0               ; adres do tablicy trÃ³jsÅ‚Ã³w
+                                        ; pierwsze sÅ‚owo -> liczba paragrafÃ³w do zaalokowania
+                                        ; drugie sÅ‚owo -> uzyskuje adres bufora do trybu real
+                                        ; trzecie sÅ‚owo -> uzyskuje adres bufora do trybu protected
                 ORG     0Ah
                 dw      0               ; segment danych
 CpuMode         db      0               ; 0 -> tryb real, 1 -> tryb protected
