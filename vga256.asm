@@ -63,18 +63,18 @@ DATASEG
 
 IFDEF BGI30
 
-                db      2               ; liczba selektorów do konwersji
-                dw      offset SelA000  ; offset tablicy selektorów
-                db      0               ; liczba adresów przerwań do konwersji
-                dw      0               ; offset tablicy dwusłów z numerem przerwania w najmłodszym bajcie
-                db      0               ; liczba buforów do alokacji
-                dw      0               ; adres do tablicy trójsłów
-                                        ; pierwsze słowo -> liczba paragrafów do zaalokowania
-                                        ; drugie słowo -> uzyskuje adres bufora do trybu real
-                                        ; trzecie słowo -> uzyskuje adres bufora do trybu protected
+                db      2               ; number of selectors to be converted
+                dw      offset SelA000  ; offset to selector table
+                db      0               ; number of interrupt addresses to be converted
+                dw      0               ; offset to table of doublewords with interrupt number in lowest byte
+                db      0               ; number of buffers to allocate
+                dw      0               ; address of triplewords table
+                                        ; the first word  -> number of paragraphs to allocate
+                                        ; the second word -> gets real mode buffer address
+                                        ; the third word  -> gets protected mode buffer address
                 ORG     0Ah
-                dw      0               ; segment danych
-CpuMode         db      0               ; 0 -> tryb real, 1 -> tryb protected
+                dw      0               ; data segment selector
+CpuMode         db      0               ; 0 -> real mode, 1 -> protected mode
 
 ENDIF
 
