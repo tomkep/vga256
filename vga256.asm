@@ -140,7 +140,7 @@ ENDP
 
 PROC PASCAL     N_SCOPY@        NEAR
                 ARG     @@dst : DWORD, @@src : DWORD
-                USES    ds
+                USES    ds, si, di
                 cld
                 les     di,[@@dst]
                 lds     si,[@@src]
@@ -150,12 +150,12 @@ PROC PASCAL     N_SCOPY@        NEAR
         @@1:    rep     movsw
                 ret
 ENDP
-ENDP
 
 IFDEF           BGI30
 
 PROC _CType     FillMem
                 ARG     @@ptr : DWORD, @@c : BYTE, @@n : WORD
+                USES    di
                 les     di,[@@ptr]
                 mov     cx,[@@n]
                 mov     al,[@@c]
