@@ -145,9 +145,9 @@ PROC PASCAL     N_SCOPY@        NEAR
                 les     di,[@@dst]
                 lds     si,[@@src]
                 shr     cx,1
-                jnc     @@1
-                movsb
-        @@1:    rep     movsw
+                rep     movsw
+                adc     cx,cx
+                rep     movsb
                 ret
 ENDP
 
@@ -161,9 +161,9 @@ PROC _CType     FillMem
                 mov     al,[@@c]
                 mov     ah,al
                 shr     cx,1
-                jnc     @@1
-                stosb
-        @@1:    rep     stosw
+                rep     stosw
+                adc     cx,cx
+                rep     stosb
                 ret
 ENDP
 
