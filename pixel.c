@@ -13,7 +13,7 @@ void PutPixel(int x, int y, int color)
   _ES = (unsigned)VideoSeg;
   _BX = (unsigned)(VideoOff + y * 80 + x / 4);
   _AL = color;
-  asm	xchg	es:[bx],al
+  asm   xchg    es:[bx],al
 }
 
 void XorPutPixel(int x, int y, int color)
@@ -23,7 +23,7 @@ void XorPutPixel(int x, int y, int color)
   _ES = (unsigned)VideoSeg;
   _BX = (unsigned)(VideoOff + y * 80 + x / 4);
   _AL = color;
-  asm	xchg	es:[bx],al
+  asm   xchg    es:[bx],al
 }
 
 void OrPutPixel(int x, int y, int color)
@@ -33,7 +33,7 @@ void OrPutPixel(int x, int y, int color)
   _ES = (unsigned)VideoSeg;
   _BX = (unsigned)(VideoOff + y * 80 + x / 4);
   _AL = color;
-  asm	xchg	es:[bx],al
+  asm   xchg    es:[bx],al
 }
 
 void AndPutPixel(int x, int y, int color)
@@ -43,7 +43,7 @@ void AndPutPixel(int x, int y, int color)
   _ES = (unsigned)VideoSeg;
   _BX = (unsigned)(VideoOff + y * 80 + x / 4);
   _AL = color;
-  asm	xchg	es:[bx],al
+  asm   xchg    es:[bx],al
 }
 
 void NotPutPixel(int x, int y, int color)
@@ -53,5 +53,5 @@ void NotPutPixel(int x, int y, int color)
   _ES = (unsigned)VideoSeg;
   _BX = (unsigned)(VideoOff + y * 80 + x / 4);
   _AL = ~color;
-  asm	xchg	es:[bx],al
+  asm   xchg    es:[bx],al
 }

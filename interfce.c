@@ -112,7 +112,7 @@ int CallRealInt(int IntNo, struct REGPACK far *regs)
   _CX = 0;
   _AX = 0x300;
   geninterrupt(0x31);
-  asm	jc	label_ret
+  asm   jc      label_ret
   regs->r_ax = CS.EAX;
   regs->r_bx = CS.EBX;
   regs->r_cx = CS.ECX;
@@ -127,7 +127,7 @@ int CallRealInt(int IntNo, struct REGPACK far *regs)
     _BX = CS.DS;
     _AX = 2;
     geninterrupt(0x31);
-    asm	jc	label_ret
+    asm jc      label_ret
     regs->r_ds = _AX;
   }
   if(CS.ES != 0)
@@ -135,11 +135,11 @@ int CallRealInt(int IntNo, struct REGPACK far *regs)
     _BX = CS.ES;
     _AX = 2;
     geninterrupt(0x31);
-    asm	jc	label_ret
+    asm jc      label_ret
     regs->r_es = _AX;
   }
   label_ret:
-  asm	sbb	ax,ax
+  asm   sbb     ax,ax
   return (_AX);
 }
 
@@ -249,7 +249,7 @@ void pCLEAR(void)
   _ES = (unsigned)VideoSeg;
   _DI = (unsigned)VideoOff;
   _AX = 0;
-  asm	rep	stosw
+  asm   rep     stosw
 }
 
 #pragma saveregs
@@ -496,7 +496,7 @@ void pINIT(void)
     _ES = (unsigned)VideoSeg;
     _CX = 0x8000;
     _DI = _AX = 0;
-    asm	rep	stosw
+    asm rep     stosw
     if(ModeNo == 1)
     {
       outportb(0x3D4, 9);

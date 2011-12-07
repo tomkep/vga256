@@ -10,129 +10,129 @@ ENDIF
 IDEAL
 
 IFDEF __TINY__
-   $$Tiny	EQU
+   $$Tiny       EQU
 ENDIF
 
 IFDEF __SMALL__
-   $$Small	EQU
+   $$Small      EQU
 ENDIF
 
 IFDEF __MEDIUM__
-   $$Medium	EQU
+   $$Medium     EQU
 ENDIF
 
 IFDEF __COMPACT__
-   $$Compact	EQU
+   $$Compact    EQU
 ENDIF
 
 IFDEF __LARGE__
-   $$Large	EQU
+   $$Large      EQU
 ENDIF
 
 IFDEF __HUGE__
-   $$Huge	EQU
+   $$Huge       EQU
 ENDIF
 
 IFDEF __T__
-   $$Tiny	EQU
+   $$Tiny       EQU
 ENDIF
 
 IFDEF __S__
-   $$Small	EQU
+   $$Small      EQU
 ENDIF
 
 IFDEF __M__
-   $$Medium	EQU
+   $$Medium     EQU
 ENDIF
 
 IFDEF __C__
-   $$Compact	EQU
+   $$Compact    EQU
 ENDIF
 
 IFDEF __L__
-   $$Large	EQU
+   $$Large      EQU
 ENDIF
 
 IFDEF __H__
-   $$Huge	EQU
+   $$Huge       EQU
 ENDIF
 
 IFDEF __P__
-   $$Pascal	EQU
+   $$Pascal     EQU
 ENDIF
 
 IFDEF __t__
-   $$Tiny	EQU
+   $$Tiny       EQU
 ENDIF
 
 IFDEF __s__
-   $$Small	EQU
+   $$Small      EQU
 ENDIF
 
 IFDEF __m__
-   $$Medium	EQU
+   $$Medium     EQU
 ENDIF
 
 IFDEF __c__
-   $$Compact	EQU
+   $$Compact    EQU
 ENDIF
 
 IFDEF __l__
-   $$Large	EQU
+   $$Large      EQU
 ENDIF
 
 IFDEF __h__
-   $$Huge	EQU
+   $$Huge       EQU
 ENDIF
 
 IFDEF __p__
-   $$Pascal	EQU
+   $$Pascal     EQU
 ENDIF
 
 IFDEF $$Tiny
-   $$Model	EQU	TINY
-   $$Language	EQU	C
-   $$StackPtr	EQU	NEARSTACK
+   $$Model      EQU     TINY
+   $$Language   EQU     C
+   $$StackPtr   EQU     NEARSTACK
 ENDIF
 
 IFDEF $$Small
-   $$Model	EQU	SMALL
-   $$Language	EQU	C
-   $$StackPtr	EQU	NEARSTACK
+   $$Model      EQU     SMALL
+   $$Language   EQU     C
+   $$StackPtr   EQU     NEARSTACK
 ENDIF
 
 IFDEF $$Compact
-   $$Model	EQU	COMPACT
-   $$Language	EQU	C
-   $$StackPtr	EQU	FARSTACK
+   $$Model      EQU     COMPACT
+   $$Language   EQU     C
+   $$StackPtr   EQU     FARSTACK
 ENDIF
 
 IFDEF $$Medium
-   $$Model	EQU	MEDIUM
-   $$Language	EQU	C
-   $$StackPtr	EQU	NEARSTACK
+   $$Model      EQU     MEDIUM
+   $$Language   EQU     C
+   $$StackPtr   EQU     NEARSTACK
 ENDIF
 
 IFDEF $$Large
-   $$Model	EQU	LARGE
-   $$Language	EQU 	C
-   $$StackPtr	EQU	FARSTACK
+   $$Model      EQU     LARGE
+   $$Language   EQU     C
+   $$StackPtr   EQU     FARSTACK
 ENDIF
 
 IFDEF $$Huge
 IFDEF $$TurboC
-   $$Model	EQU	HUGE
+   $$Model      EQU     HUGE
 ELSE
-   $$Model	EQU	TCHUGE
+   $$Model      EQU     TCHUGE
 ENDIF
-   $$Language	EQU	C
-   $$StackPtr	EQU	FARSTACK
+   $$Language   EQU     C
+   $$StackPtr   EQU     FARSTACK
 ENDIF
 
 IFDEF $$Pascal
-   $$Model	EQU	LARGE
-   $$Language	EQU	PASCAL
-   $$StackPtr	EQU	FARSTACK
+   $$Model      EQU     LARGE
+   $$Language   EQU     PASCAL
+   $$StackPtr   EQU     FARSTACK
 ENDIF
 
 IFNDEF $$Model
@@ -154,66 +154,66 @@ ELSE
 ENDIF
 ENDIF
 
-   MACRO	SaveSI
-		USES	si
+   MACRO        SaveSI
+                USES    si
    ENDM
-   MACRO	SaveDI
-	        USES	di
+   MACRO        SaveDI
+                USES    di
    ENDM
 
 IF @DataSize eq 0
-   MACRO	LES_ reg,memref
-		mov	reg,memref
+   MACRO        LES_ reg,memref
+                mov     reg,memref
    ENDM
-   MACRO	LDS_ reg,memref
-		mov	reg,memref
+   MACRO        LDS_ reg,memref
+                mov     reg,memref
    ENDM
-   MACRO	SaveDS
+   MACRO        SaveDS
    ENDM
-   MACRO	LoadES
-		push	ds
-		pop	es
+   MACRO        LoadES
+                push    ds
+                pop     es
    ENDM
    ES_          EQU
    SS_          EQU
 ELSE
-   MACRO	LES_ reg,memref
-		les	reg,memref
+   MACRO        LES_ reg,memref
+                les     reg,memref
    ENDM
-   MACRO	LDS_ reg,memref
-		lds	reg,memref
+   MACRO        LDS_ reg,memref
+                lds     reg,memref
    ENDM
-   MACRO	SaveDS
-		USES	ds
+   MACRO        SaveDS
+                USES    ds
    ENDM
-   MACRO	LoadES
+   MACRO        LoadES
    ENDM
-   ES_	        EQU	es:
-   SS_          EQU	ss:
+   ES_          EQU     es:
+   SS_          EQU     ss:
 ENDIF
 
 IF @Model eq 7
-   MACRO	SetUpDS
-		ASSUME	ds : @data
-		USES	ds
-		mov	ax,@data
-		mov	ds,ax
+   MACRO        SetUpDS
+                ASSUME  ds : @data
+                USES    ds
+                mov     ax,@data
+                mov     ds,ax
    ENDM
 ELSE
-   MACRO	SetUpDS
+   MACRO        SetUpDS
    ENDM
 ENDIF
 
-   _Cdecl	EQU	C
+   _Cdecl       EQU     C
 
 IFDEF $$Pascal
-   _CType	EQU	PASCAL
+   _CType       EQU     PASCAL
 ELSEIFDEF  __PAS__
-   _CType	EQU	PASCAL
+   _CType       EQU     PASCAL
 ELSEIFDEF  __PASCAL__
-   _CType	EQU	PASCAL
+   _CType       EQU     PASCAL
 ELSE
-   _CType	EQU	_Cdecl
+   _CType       EQU     _Cdecl
 ENDIF
 
 IFDEF $$PM
@@ -248,19 +248,19 @@ ELSE
 ENDIF
 
 IF @DataSize eq 0
-	$$ES	EQU
-	$$DS	EQU
-	$$SS	EQU
+        $$ES    EQU
+        $$DS    EQU
+        $$SS    EQU
 ELSE
-	$$ES	EQU	es
-	$$DS	EQU	ds
-	$$SS	EQU	ss
+        $$ES    EQU     es
+        $$DS    EQU     ds
+        $$SS    EQU     ss
 ENDIF
 
 IF @CodeSize eq 0
-	$$CS	EQU
+        $$CS    EQU
 ELSE
-	$$CS	EQU	cs
+        $$CS    EQU     cs
 ENDIF
 
 MACRO CODESTART
@@ -276,13 +276,13 @@ ENDIF
 ENDM
 
 IF @CodeSize EQ 0
-	$$CodeSize	=	2
+        $$CodeSize      =       2
 ELSE
-	$$CodeSize	=	4
+        $$CodeSize      =       4
 ENDIF
 
 IF @DataSize EQ 0
-	$$DataSize	=	2
+        $$DataSize      =       2
 ELSE
-	$$DataSize	=	4
+        $$DataSize      =       4
 ENDIF

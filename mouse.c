@@ -113,13 +113,13 @@ static unsigned UserMask;
 static void huge IntRoutine(void)
 {
   int x = _CX, y = _DX;
-  asm	test	ax,UserMask
-  asm	jz	label_1
-  asm	push	ax
-  asm	mov	ax,word ptr UserRoutine
-  asm	or	ax,word ptr UserRoutine+2
-  asm	pop	ax
-  asm	jz	label_1
+  asm   test    ax,UserMask
+  asm   jz      label_1
+  asm   push    ax
+  asm   mov     ax,word ptr UserRoutine
+  asm   or      ax,word ptr UserRoutine+2
+  asm   pop     ax
+  asm   jz      label_1
   (*UserRoutine)();
   label_1:
   if(fDraw >= 0)
@@ -202,7 +202,7 @@ static void interrupt Int33h(unsigned bp, unsigned di, unsigned si, unsigned ds,
       }
       _chain_intr(OldInt33);
       break;
-    case 9:				// define cursor
+    case 9:                             // define cursor
       Cursor.HotSpotX = bx;
       Cursor.HotSpotY = cx;
       for(i = 0; i < 32; i++)
@@ -215,7 +215,7 @@ static void interrupt Int33h(unsigned bp, unsigned di, unsigned si, unsigned ds,
         DrawCursor(_CX, _DX);
       }
       break;
-    case 12:				// set user's routine
+    case 12:                            // set user's routine
       UserMask = cx;
       UserRoutine = (void huge (*)(void))MK_FP(es, dx);
       break;
@@ -225,7 +225,7 @@ static void interrupt Int33h(unsigned bp, unsigned di, unsigned si, unsigned ds,
       Trap.x2 = si;
       Trap.y2 = di;
       break;
-    case 20:				// change users's routine
+    case 20:                            // change users's routine
       i = UserMask;
       UserMask = cx;
       cx = i;
@@ -235,7 +235,7 @@ static void interrupt Int33h(unsigned bp, unsigned di, unsigned si, unsigned ds,
       dx = FP_OFF(UserRoutine);
       UserRoutine = (void huge (*)(void))MK_FP(i, j);
       break;
-    case 29:				// set cursor page
+    case 29:                            // set cursor page
       CRTPage = bx % (ModeNo == 0 ? 4 : 2);
       if(fDraw >= 0)
         RestoreBackground();
@@ -243,7 +243,7 @@ static void interrupt Int33h(unsigned bp, unsigned di, unsigned si, unsigned ds,
       if(fDraw >= 0)
         DrawCursor(OldBackground.x, OldBackground.y);
       break;
-    case 30:				// get cursor page
+    case 30:                            // get cursor page
       bx = CRTPage;
       break;
     default:                            // chain to the old handler
