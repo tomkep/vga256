@@ -35,4 +35,5 @@ All the files except device.inc are licensed under MIT license
 (see license.txt).
 
 device.inc is a part of BGI TOOLKIT VERSION 1.0. See the file for copyright
-information.
+information. It might have been modified (to provide support for version 3 BGI)
+and I license any changes I might have done under MIT licence.
